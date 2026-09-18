@@ -1,0 +1,472 @@
+/* ==========================================================================
+   STYLE.CSS — Portofolio nprayoga
+   ==========================================================================
+   DAFTAR ISI
+     1. Design token (variabel warna, font, jarak, radius) + tema gelap
+     2. Reset & gaya dasar
+     3. Animasi
+     4. Status bar
+     5. Navigasi
+     6. Hero
+     7. Section umum
+     8. Chip filter
+     9. Proyek utama (featured)
+    10. Grid kartu proyek
+    11. Cara kerja (process)
+    12. Profil
+    13. Kontak
+    14. Footer
+    15. Dialog detail proyek
+    16. Responsif layar kecil
+
+   CATATAN TEMA:
+     Tema ditentukan tiga cara, urutan prioritas:
+       a. Atribut data-theme="light|dark" pada <html> (diatur script.js, tersimpan di localStorage)
+       b. Jika tidak ada data-theme → ikut pengaturan sistem (prefers-color-scheme)
+       c. Default → tema terang (nilai di :root)
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. DESIGN TOKEN
+   Semua warna/ukuran dipusatkan di sini sebagai variabel CSS.
+   Ubah di satu tempat → seluruh situs (termasuk diagram SVG di HTML) ikut berubah.
+   ========================================================================== */
+:root {
+    /* --- Warna netral --- */
+    /* paper = latar halaman | paper-raised = latar kartu | line = garis tipis | line-strong = garis tegas */
+    --paper: #f7f2ea; --paper-raised: #fffcf7; --line: #e3d9c8; --line-strong: #9c8557;
+    /* ink = teks utama | ink-muted = teks sekunder */
+    --ink: #241f19; --ink-muted: #635949; --clay: #a8461f; --clay-soft: #f6e3d3; --on-clay: #fff8f2;
+    /* --- Warna aksen ---
+       clay  (terakota) = aksen utama, tombol utama, tautan aktif
+       pine  (hijau)    = status "Selesai"
+       amber (kuning)   = status "Proses" / SLA
+       *-soft           = versi pucat untuk latar
+       on-clay          = warna teks di atas latar clay */
+    --pine: #2f5d4f; --pine-soft: #dcece5; --amber: #855509; --amber-soft: #f5e6c8;
+    /* --- Bayangan (nilai hex 8 digit: 2 digit terakhir = transparansi) --- */
+    --shadow-sm: 0 1px 2px #241f190f, 0 1px 3px #241f191a;
+    --shadow-lg: 0 4px 8px #241f1914, 0 16px 32px -4px #241f1929;
+    /* Cincin fokus keyboard: lingkaran paper (celah) lalu lingkaran clay (garis luar) */
+    --focus-ring: 0 0 0 2px var(--paper), 0 0 0 4px var(--clay);
+    /* --- Keluarga font (dengan cadangan jika font web gagal dimuat) --- */
+    --font-display: "Fraunces", "Iowan Old Style", ui-serif, Georgia, serif;
+    --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    /* --- Skala jarak (spacing) --- */
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+    --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
+    /* --- Skala sudut membulat --- */
+    --radius-sm: 4px; --radius-md: 10px; --radius-lg: 20px; --radius-full: 9999px;
+  }
+
+  /* TEMA GELAP (otomatis): dipakai bila sistem pengguna gelap DAN pengguna
+     belum memilih tema terang secara manual. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1b1815; --paper-raised: #242019; --line: #3a332a; --line-strong: #7a6c4f;
+      --ink: #f3ede2; --ink-muted: #a89c8b; --clay: #e88a5b; --clay-soft: #3a2013; --on-clay: #1b1815;
+      --pine: #7fc9ad; --pine-soft: #16332a; --amber: #e3ab53; --amber-soft: #3a2c0e;
+      --shadow-sm: 0 1px 3px #000000b3; --shadow-lg: 0 16px 32px -4px #000000cc;
+    }
+  }
+  /* TEMA GELAP (manual): dipakai bila pengguna menekan tombol tema → script.js
+     memasang data-theme="dark". Nilainya harus sama dengan blok di atas. */
+  :root[data-theme="dark"] {
+    --paper: #1b1815; --paper-raised: #242019; --line: #3a332a; --line-strong: #7a6c4f;
+    --ink: #f3ede2; --ink-muted: #a89c8b; --clay: #e88a5b; --clay-soft: #3a2013; --on-clay: #1b1815;
+    --pine: #7fc9ad; --pine-soft: #16332a; --amber: #e3ab53; --amber-soft: #3a2c0e;
+    --shadow-sm: 0 1px 3px #000000b3; --shadow-lg: 0 16px 32px -4px #000000cc;
+  }
+
+
+/* ==========================================================================
+   2. RESET & GAYA DASAR
+   ========================================================================== */
+  /* Lebar elemen sudah termasuk padding & border (lebih mudah dihitung) */
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-sans);
+    font-size: 16px; line-height: 1.5; padding-inline: var(--space-6);
+    overflow-x: hidden; /* cegah scroll horizontal akibat elemen dekoratif yang keluar layar */
+  }
+  /* Scroll halus saat klik tautan anchor — hanya jika pengguna tidak meminta gerakan dikurangi */
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+  a { color: inherit; }
+  /* Judul memakai font serif; text-wrap: balance menyeimbangkan panjang baris judul */
+  h1, h2, h3 { text-wrap: balance; font-family: var(--font-display); font-weight: 500; margin: 0; }
+  /* .wrap = kolom konten utama: lebar maksimum 940px, di tengah */
+  .wrap { max-width: 940px; margin-inline: auto; position: relative; }
+  /* .eyebrow = label kecil huruf kapital monospace di atas judul.
+     (.label belum dipakai di HTML.) */
+  .eyebrow, .label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+
+
+/* ==========================================================================
+   3. ANIMASI
+   ========================================================================== */
+  /* "rise": elemen naik 14px sambil memudar masuk */
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  /* .reveal dipasang di HTML; jeda tiap elemen diatur lewat style="animation-delay" inline.
+     "both" = sebelum mulai tetap di keadaan awal (tak terlihat), sesudah selesai tetap di akhir. */
+  .reveal { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
+  /* Garis sorot di bawah kata aksen tumbuh dari kiri ke kanan */
+  @keyframes underline-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  /* Titik status berdenyut (membesar-mengecil sambil memudar) */
+  @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.82); } }
+  /* AKSESIBILITAS: jika pengguna memilih "kurangi gerakan" di sistemnya, matikan semua animasi */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { animation: none; }
+    .accent::after { animation: none !important; transform: scaleX(1); }
+    .status-dot { animation: none !important; }
+    * { transition-duration: .01ms !important; }
+  }
+
+
+/* ==========================================================================
+   4. STATUS BAR — strip tipis di paling atas (terinspirasi papan status layanan)
+   ========================================================================== */
+  .statusbar {
+    display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
+    padding-block: var(--space-2); font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: .06em; text-transform: uppercase; color: var(--ink-muted); flex-wrap: wrap;
+  }
+  .status-left { display: inline-flex; align-items: center; gap: var(--space-2); }
+  /* Titik hijau kecil yang berdenyut tanpa henti (2.4 detik per siklus) */
+  .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--pine); display: inline-block; animation: pulse-dot 2.4s ease-in-out infinite; }
+  /* tabular-nums: lebar angka sama rata → jam tidak "bergoyang" saat berganti angka */
+  .status-clock { font-variant-numeric: tabular-nums; }
+
+
+/* ==========================================================================
+   5. NAVIGASI
+   ========================================================================== */
+  .nav {
+    /* sticky: menempel di atas saat halaman di-scroll; env(safe-area...) = menghindari "poni" layar ponsel */
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+    display: flex; align-items: center; justify-content: space-between; padding-block: var(--space-4);
+    /* Latar semi-transparan 88% + efek blur di belakang (efek kaca) */
+    background: color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter: blur(8px);
+    /* margin negatif + padding sama → nav melebar penuh sampai tepi layar, isinya tetap sejajar konten */
+    border-bottom: 1px solid var(--line); margin-inline: calc(var(--space-6) * -1); padding-inline: var(--space-6);
+  }
+  /* Bilah progres scroll: menempel di tepi bawah nav. Lebarnya diubah script.js (0% → 100%) */
+  .nav-progress { position: absolute; left: 0; bottom: -1px; height: 2px; width: 0%; background: var(--clay); transition: width .1s linear; }
+  .nav-mark { font-family: var(--font-display); font-size: 20px; font-weight: 700; text-decoration: none; color: var(--ink); }
+  /* Logo pendek "Np." disembunyikan dulu; baru tampil di layar sempit (lihat bagian 16) */
+  .mark-short { display: none; }
+  .nav-right { display: flex; align-items: center; gap: var(--space-6); }
+  .nav-links { display: flex; gap: var(--space-6); list-style: none; margin: 0; padding: 0; }
+  .nav-links a {
+    position: relative; font-size: 14px; font-weight: 500; color: var(--ink-muted); text-decoration: none;
+    transition: color .15s ease; padding-bottom: 2px; white-space: nowrap;
+  }
+  /* Garis bawah tautan: awalnya lebar 0 (right: 100%), saat hover/aktif melebar ke kanan (right: 0) */
+  .nav-links a::after {
+    content: ''; position: absolute; left: 0; right: 100%; bottom: -1px; height: 2px; background: var(--clay);
+    transition: right .2s cubic-bezier(.2,.7,.2,1);
+  }
+  /* .is-active dipasang script.js pada tautan section yang sedang terlihat */
+  .nav-links a:hover, .nav-links a.is-active { color: var(--clay); }
+  .nav-links a:hover::after, .nav-links a.is-active::after { right: 0; }
+  /* Fokus keyboard: hilangkan outline bawaan, ganti cincin buatan sendiri (hanya muncul via keyboard) */
+  .nav-links a:focus-visible, .nav-mark:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--radius-sm); }
+
+  /* Tombol tema: lingkaran 32px */
+  .theme-toggle {
+    display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px;
+    border-radius: var(--radius-full); border: 1px solid var(--line-strong); background: transparent;
+    color: var(--ink-muted); cursor: pointer; transition: color .15s ease, border-color .15s ease, transform .3s ease; flex: none;
+  }
+  .theme-toggle:hover { color: var(--clay); border-color: var(--clay); transform: rotate(20deg); }
+  .theme-toggle:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+  .theme-toggle svg { width: 16px; height: 16px; display: block; }
+  /* Ikon: default (tema terang) tampilkan BULAN, sembunyikan MATAHARI.
+     Di tema gelap dibalik: tampilkan matahari (= tombol untuk kembali ke terang). */
+  .theme-toggle .sun { display: none; }
+  :root[data-theme="dark"] .theme-toggle .moon { display: none; }
+  :root[data-theme="dark"] .theme-toggle .sun { display: block; }
+  /* Aturan yang sama untuk kasus otomatis (mengikuti sistem gelap, belum memilih manual) */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .theme-toggle .moon { display: none; }
+    :root:not([data-theme="light"]) .theme-toggle .sun { display: block; }
+  }
+
+
+/* ==========================================================================
+   6. HERO
+   ========================================================================== */
+  .hero { position: relative; padding-block: var(--space-16) var(--space-12); }
+  /* Cahaya lingkaran terakota di pojok kanan atas; pointer-events: none → tidak menghalangi klik */
+  .hero-glow {
+    position: absolute; top: -80px; right: -120px; width: 480px; height: 480px; border-radius: 50%;
+    background: radial-gradient(circle, var(--clay-soft) 0%, transparent 70%); opacity: .8; z-index: 0; pointer-events: none;
+  }
+  /* Dua kolom: teks (1.2 bagian) dan foto (0.8 bagian). z-index 1 → di atas cahaya latar. */
+  .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.2fr .8fr; gap: var(--space-12); align-items: center; }
+  .hero-text { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-4); }
+  .hero-text .eyebrow { color: var(--ink-muted); font-weight: 500; }
+  /* clamp(min, ideal, max): ukuran judul mengecil/membesar mengikuti lebar layar, 36px–68px */
+  .hero-text h1 { font-size: clamp(36px, 6vw, 68px); line-height: 1.04; letter-spacing: -0.02em; font-weight: 600; }
+  /* Kata beraksen: berwarna clay + sorot pucat di belakangnya */
+  .accent { position: relative; color: var(--clay); white-space: nowrap; }
+  .accent::after {
+    content: ''; position: absolute; left: -2px; right: -2px; bottom: 2px; height: 10px; z-index: -1;
+    background: var(--clay-soft); border-radius: var(--radius-sm); transform-origin: left;
+    /* Tunggu 0.5 detik (agar judul sudah muncul), lalu sorot tumbuh dari kiri */
+    animation: underline-grow .6s .5s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .hero-text p.lead { margin: 0; color: var(--ink-muted); font-size: 18px; line-height: 1.6; max-width: 52ch; }
+  .actions { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-2); }
+
+  /* --- Tombol umum --- */
+  .btn {
+    font-family: var(--font-sans); font-size: 15px; font-weight: 700; line-height: 1; min-height: 46px;
+    padding: 0 var(--space-6); border-radius: var(--radius-md); border: 1px solid transparent;
+    cursor: pointer; display: inline-flex; align-items: center; gap: var(--space-2); text-decoration: none;
+    transition: background-color .15s ease, border-color .15s ease, color .15s ease, transform .15s ease, box-shadow .15s ease;
+  }
+  /* Tombol utama: terisi warna clay; saat hover berubah gelap & terangkat 2px */
+  .btn-primary { background: var(--clay); border-color: var(--clay); color: var(--on-clay); }
+  .btn-primary:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+  /* Tombol tenang: transparan dengan garis tepi */
+  .btn-quiet { background: transparent; border-color: var(--line-strong); color: var(--ink); }
+  .btn-quiet:hover { border-color: var(--clay); color: var(--clay); transform: translateY(-2px); }
+  .btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+  /* --- Foto hero --- */
+  .hero-photo { display: flex; justify-content: center; }
+  .photo-wrap { position: relative; width: 100%; max-width: 320px; }
+  /* Kotak hijau dekoratif di pojok kanan atas foto (menonjol keluar 18px) */
+  .photo-decor { position: absolute; top: -18px; right: -18px; width: 42%; aspect-ratio: 1; background: var(--pine); border-radius: var(--radius-md); z-index: 0; }
+  /* Kotak dekoratif mengambang naik-turun 8px (hanya jika gerakan tidak dikurangi) */
+  @media (prefers-reduced-motion: no-preference) {
+    .photo-decor { animation: float 6s ease-in-out infinite; }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  }
+  /* Bingkai foto rasio 4:5, sudut membulat; overflow hidden memotong gambar sesuai sudut */
+  .photo-frame {
+    position: relative; z-index: 1; aspect-ratio: 4 / 5; border-radius: var(--radius-lg); background: var(--clay-soft);
+    border: 1px solid var(--line); overflow: hidden; box-shadow: var(--shadow-lg);
+  }
+  /* Gambar memenuhi bingkai tanpa gepeng (cover) dan diprioritaskan bagian atas (wajah) */
+  .photo-frame img, .profile-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+
+  /* Layar ≤760px: hero jadi satu kolom, foto pindah ke atas & mengecil */
+  @media (max-width: 760px) {
+    .hero-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+    .hero-photo { order: -1; }
+    .photo-wrap { max-width: 220px; }
+    .hero-glow { width: 320px; height: 320px; right: -160px; }
+  }
+
+
+/* ==========================================================================
+   7. SECTION UMUM
+   ========================================================================== */
+  /* Semua <section>: garis pemisah di atas; scroll-margin-top menyisakan ruang 84px
+     agar judul tidak tertutup nav sticky saat lompat lewat anchor. */
+  section { padding-block: var(--space-12); border-top: 1px solid var(--line); scroll-margin-top: 84px; }
+  .section-heading { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-8); }
+  .section-heading .eyebrow { color: var(--clay); font-weight: 600; }
+  .section-heading h2 { font-size: clamp(24px, 3.5vw, 32px); }
+  .section-heading p.sub { margin: var(--space-2) 0 0; color: var(--ink-muted); font-size: 16px; max-width: 58ch; }
+
+
+/* ==========================================================================
+   8. CHIP FILTER
+   ========================================================================== */
+  .chips { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-6); }
+  .chip {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+    padding: var(--space-2) var(--space-3); border-radius: var(--radius-full); border: 1px solid var(--line-strong);
+    background: transparent; color: var(--ink-muted); cursor: pointer; transition: all .15s ease;
+  }
+  .chip:hover { color: var(--clay); border-color: var(--clay); }
+  /* Chip terpilih: tampilan dikendalikan atribut aria-pressed (diatur script.js).
+     Satu atribut ini sekaligus menjadi status aksesibilitas DAN pemicu gaya. */
+  .chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+  .chip:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+
+/* ==========================================================================
+   9. PROYEK UTAMA (FEATURED)
+   ========================================================================== */
+  /* Dua kolom: visual 300px di kiri, isi di kanan. Garis atas tebal berwarna amber (= status "Proses"). */
+  .featured {
+    display: grid; grid-template-columns: 300px 1fr; gap: 0; border: 1px solid var(--line); border-top: 3px solid var(--amber);
+    border-radius: var(--radius-lg); overflow: hidden; background: var(--paper-raised); margin-bottom: var(--space-6);
+    transition: box-shadow .2s ease;
+  }
+  .featured:hover { box-shadow: var(--shadow-lg); }
+  .featured-visual { background: var(--clay-soft); padding: var(--space-6); display: flex; align-items: center; justify-content: center; }
+  .featured-visual svg { width: 100%; max-width: 220px; height: auto; }
+  .featured-body { padding: var(--space-8) var(--space-6); display: flex; flex-direction: column; gap: var(--space-3); align-items: flex-start; }
+  .featured-body .eyebrow { color: var(--amber); font-weight: 600; }
+  .featured-body h3 { font-family: var(--font-display); font-size: 26px; font-weight: 600; }
+  .featured-body p { margin: 0; color: var(--ink-muted); font-size: 16px; line-height: 1.6; max-width: 52ch; }
+  /* Layar ≤720px: jadi satu kolom (visual di atas, teks di bawah) */
+  @media (max-width: 720px) { .featured { grid-template-columns: 1fr; } .featured-visual { padding: var(--space-8); } }
+
+
+/* ==========================================================================
+   10. GRID KARTU PROYEK
+   Responsif bertahap: 1 kolom → 2 kolom (≥560px) → 4 kolom (≥900px)
+   ========================================================================== */
+  .project-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-6); }
+  @media (min-width: 560px) { .project-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 900px) { .project-grid { grid-template-columns: repeat(4, 1fr); } }
+  /* Kartu = <button>, jadi gaya bawaan tombol dinetralkan (font: inherit, padding: 0, text-align: left).
+     Garis atas hijau (pine) = status "Selesai". */
+  .project-card {
+    display: flex; flex-direction: column; border-radius: var(--radius-lg); overflow: hidden; text-align: left;
+    background: var(--paper-raised); border: 1px solid var(--line); border-top: 3px solid var(--pine);
+    transition: box-shadow .2s ease, transform .2s ease; font: inherit; color: inherit; cursor: pointer; padding: 0;
+  }
+  .project-card:hover { box-shadow: var(--shadow-lg); }
+  .project-card:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+  /* Kartu terangkat 4px saat hover (kecuali gerakan dikurangi) */
+  @media (prefers-reduced-motion: no-preference) { .project-card:hover { transform: translateY(-4px); } }
+  /* Area thumbnail rasio 16:10 berisi ikon di tengah + label kecil di pojok kiri bawah */
+  .project-card .thumb { aspect-ratio: 16 / 10; background: var(--clay-soft); display: flex; align-items: center; justify-content: center; position: relative; }
+  .project-card .thumb svg { width: 38px; height: 38px; color: var(--clay); stroke-width: 1.6; transition: transform .3s ease; }
+  /* Ikon membesar & miring sedikit saat kartu di-hover */
+  .project-card:hover .thumb svg { transform: scale(1.12) rotate(-4deg); }
+  .thumb-label { position: absolute; left: var(--space-3); bottom: var(--space-2); font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--clay); opacity: .8; }
+  .project-card .body { padding: var(--space-4) var(--space-4) var(--space-6); display: flex; flex-direction: column; gap: var(--space-2); flex: 1; }
+  .project-card h3 { font-family: var(--font-sans); font-size: 17px; font-weight: 700; }
+  .project-card p { margin: 0; color: var(--ink-muted); font-size: 14px; line-height: 1.55; }
+
+  /* --- Tag (dipakai di kartu, featured, dan profil) --- */
+  .tags { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-2); }
+  .tag {
+    display: inline-flex; align-items: center; font-family: var(--font-mono); font-size: 11px; line-height: 16px;
+    letter-spacing: .06em; text-transform: uppercase; padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-full); background: var(--line); color: var(--ink-muted); white-space: nowrap;
+  }
+  .tag-pine { background: var(--pine-soft); color: var(--pine); }   /* status Selesai */
+  .tag-amber { background: var(--amber-soft); color: var(--amber); } /* status Proses */
+  /* margin-top: auto → ajakan "Lihat detail" selalu terdorong ke dasar kartu, sehingga sejajar antar kartu */
+  .card-cta { margin-top: auto; padding-top: var(--space-3); color: var(--clay); font-size: 13px; font-weight: 700; }
+  /* .note-inline belum dipakai di HTML saat ini */
+  .note-inline { margin-top: var(--space-6); font-size: 13px; color: var(--ink-muted); }
+
+
+/* ==========================================================================
+   11. CARA KERJA (PROCESS)
+   ========================================================================== */
+  /* auto-fit + minmax(200px, 1fr): kolom otomatis menyesuaikan jumlah yang muat (min. 200px per kolom) */
+  .process { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-6); }
+  .step { display: flex; flex-direction: column; gap: var(--space-2); padding-top: var(--space-4); border-top: 2px solid var(--line); }
+  .step .num { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; color: var(--clay); }
+  .step h3 { font-family: var(--font-sans); font-size: 16px; font-weight: 700; }
+  .step p { margin: 0; color: var(--ink-muted); font-size: 14px; line-height: 1.6; }
+
+
+/* ==========================================================================
+   12. PROFIL
+   ========================================================================== */
+  /* Kolom foto 200px + kolom isi fleksibel */
+  .profile-grid { display: grid; grid-template-columns: 200px 1fr; gap: var(--space-8); align-items: start; }
+  .profile-photo { aspect-ratio: 1; border-radius: var(--radius-lg); background: var(--pine-soft); border: 1px solid var(--line); overflow: hidden; }
+  .profile-content { display: flex; flex-direction: column; gap: var(--space-6); }
+  .profile-content p { margin: 0; color: var(--ink-muted); font-size: 17px; line-height: 1.65; }
+  .profile-content strong { color: var(--ink); font-weight: 700; }
+  /* <dl> jadi grid dua kolom: label (dt) di kiri selebar isinya, nilai (dd) di kanan */
+  .facts { display: grid; grid-template-columns: auto 1fr; gap: var(--space-2) var(--space-6); margin: 0; }
+  .facts dt { font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--clay); align-self: start; padding-top: 2px; }
+  .facts dd { margin: 0; font-size: 15px; }
+  .stack-list { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  /* Layar ≤620px: satu kolom, foto mengecil jadi 140px */
+  @media (max-width: 620px) { .profile-grid { grid-template-columns: 1fr; } .profile-photo { width: 140px; } }
+
+
+/* ==========================================================================
+   13. KONTAK
+   ========================================================================== */
+  .contact { display: flex; flex-direction: column; gap: var(--space-4); align-items: flex-start; }
+  .contact p { margin: 0; color: var(--ink-muted); font-size: 17px; max-width: 54ch; }
+  .email-row { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+  /* Garis bawah email transparan → muncul warna clay saat hover (transisi halus) */
+  .contact-email { font-family: var(--font-mono); font-size: 18px; color: var(--clay); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color .15s ease; }
+  .contact-email:hover { border-color: var(--clay); }
+  /* Tombol "Salin": gaya sama dengan .chip */
+  .copy-btn {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+    padding: var(--space-2) var(--space-3); border-radius: var(--radius-full); border: 1px solid var(--line-strong);
+    background: transparent; color: var(--ink-muted); cursor: pointer; transition: all .15s ease;
+  }
+  .copy-btn:hover { color: var(--clay); border-color: var(--clay); }
+  .copy-btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+
+/* ==========================================================================
+   14. FOOTER
+   ========================================================================== */
+  /* Trik margin negatif yang sama dengan nav: garis footer membentang sampai tepi layar */
+  .footer {
+    border-top: 1px solid var(--line); padding-block: var(--space-8); margin-inline: calc(var(--space-6) * -1);
+    padding-inline: var(--space-6); display: flex; justify-content: space-between; align-items: center;
+    color: var(--ink-muted); font-family: var(--font-mono); font-size: 12px; flex-wrap: wrap; gap: var(--space-3);
+  }
+  .footer a { text-decoration: none; color: var(--ink-muted); transition: color .15s ease; }
+  .footer a:hover { color: var(--clay); }
+  .socials { display: flex; gap: var(--space-4); }
+
+
+/* ==========================================================================
+   15. DIALOG DETAIL PROYEK
+   <dialog> bawaan browser: saat showModal() dipanggil, otomatis tampil di
+   "top layer" (di atas segalanya) dengan ::backdrop di belakangnya.
+   ========================================================================== */
+  dialog.detail {
+    border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper-raised); color: var(--ink);
+    /* padding 0 → seluruh area dalam dialog ditutupi .detail-inner. Karena itu di script.js
+       klik pada elemen dialog itu sendiri (e.target === dlg) pasti berarti klik di BACKDROP. */
+    padding: 0; max-width: 720px; width: calc(100% - 32px); max-height: 86vh; box-shadow: var(--shadow-lg);
+  }
+  /* Latar gelap semi-transparan di belakang dialog + blur */
+  dialog.detail::backdrop { background: #241f19b3; backdrop-filter: blur(3px); }
+  /* Yang di-scroll adalah .detail-inner (bukan dialog), supaya sudut membulat tetap rapi */
+  .detail-inner { padding: var(--space-8) var(--space-6) var(--space-6); overflow-y: auto; max-height: 86vh; }
+  .detail-head { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-4); margin-bottom: var(--space-4); }
+  .detail-head h3 { font-family: var(--font-display); font-size: 26px; font-weight: 600; }
+  .detail-head .eyebrow { color: var(--clay); display: block; margin-bottom: var(--space-2); }
+  /* Tombol tutup "×" bulat 34px */
+  .close-btn {
+    flex: none; width: 34px; height: 34px; border-radius: var(--radius-full); border: 1px solid var(--line-strong);
+    background: transparent; color: var(--ink-muted); cursor: pointer; font-size: 18px; line-height: 1; display: inline-flex;
+    align-items: center; justify-content: center; transition: all .15s ease;
+  }
+  .close-btn:hover { color: var(--clay); border-color: var(--clay); }
+  .close-btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+  /* Isi panel: paragraf, sub-judul (h4), daftar */
+  .detail-body p { margin: 0 0 var(--space-4); color: var(--ink-muted); font-size: 15px; line-height: 1.65; }
+  .detail-body h4 { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--clay); margin: var(--space-6) 0 var(--space-2); font-weight: 500; }
+  /* h4 pertama di panel tidak perlu jarak atas */
+  .detail-body h4:first-child { margin-top: 0; }
+  .detail-body ul { margin: 0 0 var(--space-4); padding-left: 1.1em; color: var(--ink-muted); font-size: 15px; line-height: 1.7; }
+  /* --- Diagram (figure) --- */
+  figure { margin: var(--space-6) 0 0; }
+  /* Wadah diagram bisa digulir horizontal di layar kecil */
+  .fig-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--paper); padding: var(--space-4); }
+  /* min-width 560px → diagram tidak diperkecil terlalu kecil (scroll saja).
+     color di sini menentukan warna currentColor → garis & kepala panah diagram SVG. */
+  .fig-scroll svg { display: block; min-width: 560px; max-width: 100%; height: auto; color: var(--ink-muted); }
+  figcaption { margin-top: var(--space-3); font-size: 13px; line-height: 1.6; color: var(--ink-muted); }
+
+
+/* ==========================================================================
+   16. RESPONSIF LAYAR KECIL (≤560px)
+   ========================================================================== */
+  @media (max-width: 560px) {
+    /* Nav dipadatkan supaya 4 tautan + tombol tema muat sebaris */
+    .nav-links { gap: 10px; }
+    .nav-links a { font-size: 12.5px; }
+    .nav-right { gap: 10px; }
+    /* Tukar logo: sembunyikan "nprayoga", tampilkan "Np." */
+    .mark-full { display: none; }
+    .mark-short { display: inline; }
+    .hero { padding-block: var(--space-12) var(--space-8); }
+  }
