@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>nprayoga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <div class="statusbar">
+    <span class="status-left"><span class="status-dot" aria-hidden="true"></span> Terbuka untuk proyek baru</span>
+    <span class="status-clock" id="clock">—</span>
+  </div>
+
+  <nav class="nav">
+    <a class="nav-mark" href="#top"><span class="mark-full">nprayoga</span><span class="mark-short">Np.</span></a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#proyek">Proyek</a></li>
+        <li><a href="#proses">Cara kerja</a></li>
+        <li><a href="#profil">Profil</a></li>
+        <li><a href="#kontak">Kontak</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Ganti tema terang/gelap">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+    <div class="nav-progress" id="progress" aria-hidden="true"></div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow reveal">Solo developer · IT Superman ·  PALUGADA </p>
+        <h1 class="reveal" style="animation-delay:.06s">Membangun software yang <span class="accent">tertata rapi</span>.</h1>
+        <p class="lead reveal" style="animation-delay:.12s">Saya menulis kode setelah alur kerjanya jelas dulu.</p>
+        <div class="actions reveal" style="animation-delay:.18s">
+          <a class="btn btn-primary" href="#proyek">Lihat proyek</a>
+          <a class="btn btn-quiet" href="#kontak">Hubungi saya</a>
+        </div>
+      </div>
+      <div class="hero-photo reveal" style="animation-delay:.1s">
+        <div class="photo-wrap">
+          <div class="photo-decor" aria-hidden="true"></div>
+          <div class="photo-frame">
+            <img src="assets/nixon.jpeg" alt="Foto profil saya">
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="proyek">
+    <div class="section-heading">
+      <p class="eyebrow">01 — Proyek</p>
+      <h2>Yang sedang dan sudah dibangun</h2>
+      <p class="sub">Lima proyek, dua ranah: aplikasi untuk klien, dan satu sistem layanan TI yang jadi bahan skripsi. Klik kartunya untuk lihat masalah yang diselesaikan dan peran saya.</p>
+    </div>
+
+    <div class="chips" role="group" aria-label="Saring proyek">
+      <button class="chip" type="button" data-filter="semua" aria-pressed="true">Semua</button>
+      <button class="chip" type="button" data-filter="web" aria-pressed="false">Web</button>
+      <button class="chip" type="button" data-filter="mobile" aria-pressed="false">Mobile</button>
+    </div>
+
+    <article class="featured" data-kategori="web" data-detail="sipelantik">
+      <div class="featured-visual">
+        <svg viewBox="0 0 200 250" role="img" aria-label="Alur ringkas: tiket masuk, triase, eksekusi, penutupan">
+          <rect x="20" y="10" width="160" height="40" rx="10" fill="var(--paper-raised)" stroke="var(--line-strong)" stroke-width="1.5"/>
+          <text x="100" y="35" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">TIKET MASUK</text>
+          <line x1="100" y1="50" x2="100" y2="76" stroke="var(--ink-muted)" stroke-width="1.5"/>
+          <polygon points="100,82 96,74 104,74" fill="var(--ink-muted)"/>
+          <rect x="20" y="82" width="160" height="40" rx="10" fill="var(--paper-raised)" stroke="var(--line-strong)" stroke-width="1.5"/>
+          <text x="100" y="107" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">TRIASE</text>
+          <line x1="100" y1="122" x2="100" y2="148" stroke="var(--ink-muted)" stroke-width="1.5"/>
+          <polygon points="100,154 96,146 104,146" fill="var(--ink-muted)"/>
+          <rect x="20" y="154" width="160" height="40" rx="10" fill="var(--paper-raised)" stroke="var(--clay)" stroke-width="1.5"/>
+          <text x="100" y="179" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--clay)">EKSEKUSI</text>
+          <line x1="100" y1="194" x2="100" y2="202" stroke="var(--ink-muted)" stroke-width="1.5"/>
+          <polygon points="100,208 96,200 104,200" fill="var(--ink-muted)"/>
+          <rect x="20" y="210" width="160" height="36" rx="10" fill="var(--paper-raised)" stroke="var(--pine)" stroke-width="1.5"/>
+          <text x="100" y="233" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--pine)">SELESAI</text>
+        </svg>
+      </div>
+      <div class="featured-body">
+        <p class="eyebrow">Proyek utama · Studi kasus</p>
+        <h3>SIPELANTIK</h3>
+        <p>Sistem Pelayanan TIK: platform ITSM berbasis ITIL v4 untuk unit layanan TI organisasi. Menangani dua alur — Service Request dan Incident Management — dari tiket masuk sampai penutupan.</p>
+        <div class="tags">
+          <span class="tag">Laravel</span>
+          <span class="tag">React</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag tag-amber">Proses</span>
+        </div>
+        <button class="btn btn-quiet" type="button" data-open="sipelantik" style="margin-top:8px">Buka studi kasus</button>
+      </div>
+    </article>
+
+    <div class="project-grid">
+      <button class="project-card" type="button" data-kategori="mobile" data-open="wisata">
+        <div class="thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M14.5 9.5 13 13l-3.5 1.5L11 11z"/></svg>
+          <span class="thumb-label">Wisata Trenggalek</span>
+        </div>
+        <div class="body">
+          <h3>Wisata Trenggalek</h3>
+          <p>Promosi pariwisata daerah dengan virtual tour 360° di tiap destinasi.</p>
+          <div class="tags"><span class="tag">Flutter</span><span class="tag">Firebase</span><span class="tag tag-pine">Selesai</span></div>
+          <span class="card-cta">Lihat detail →</span>
+        </div>
+      </button>
+
+      <button class="project-card" type="button" data-kategori="mobile" data-open="absensi">
+        <div class="thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
+          <span class="thumb-label">Absensi PT KPK</span>
+        </div>
+        <div class="body">
+          <h3>Sistem Absensi — PT Kilau Pilar Kencana</h3>
+          <p>Pencatatan kehadiran karyawan: absen masuk/pulang dan rekap harian.</p>
+          <div class="tags"><span class="tag">Flutter</span><span class="tag tag-pine">Selesai</span></div>
+          <span class="card-cta">Lihat detail →</span>
+        </div>
+      </button>
+
+      <button class="project-card" type="button" data-kategori="mobile" data-open="roti">
+        <div class="thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15c2-6 6-9 9-9 4 0 7 3 7 7 0 1-1 2-2 2H6c-1 0-2-1-2-2z"/><path d="M8 13l1-3M12 12l1-4M16 13l1-3"/></svg>
+          <span class="thumb-label">Toko Roti</span>
+        </div>
+        <div class="body">
+          <h3>Aplikasi Toko Roti</h3>
+          <p>Katalog dan pemesanan produk, lengkap dengan info stok harian.</p>
+          <div class="tags"><span class="tag">Flutter</span><span class="tag tag-pine">Selesai</span></div>
+          <span class="card-cta">Lihat detail →</span>
+        </div>
+      </button>
+
+      <button class="project-card" type="button" data-kategori="web" data-open="umkm">
+        <div class="thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          <span class="thumb-label">Ecommerce UMKM</span>
+        </div>
+        <div class="body">
+          <h3>Ecommerce UMKM</h3>
+          <p>Toko online untuk pelaku UMKM: katalog, keranjang, dan manajemen pesanan.</p>
+          <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Laravel</span><span class="tag tag-pine">Selesai</span></div>
+          <span class="card-cta">Lihat detail →</span>
+        </div>
+      </button>
+    </div>
+
+  </section>
+
+  <section id="proses">
+    <div class="section-heading">
+      <p class="eyebrow">02 — Cara kerja</p>
+      <h2>Proses dulu, kode kemudian</h2>
+      <p class="sub">Urutan ini yang saya pakai di hampir semua proyek — datang dari kebiasaan membedah alur layanan, bukan dari template pengembangan.</p>
+    </div>
+    <div class="process">
+      <div class="step">
+        <span class="num">01</span>
+        <h3>Pahami prosesnya</h3>
+        <p>Petakan dulu alur yang sedang berjalan: siapa melakukan apa, di titik mana macet, dan data apa yang hilang di sana.</p>
+      </div>
+      <div class="step">
+        <span class="num">02</span>
+        <h3>Rancang alurnya</h3>
+        <p>Tentukan status, peran, dan jalur eskalasi sebelum menyentuh antarmuka. Untuk konteks layanan, kerangkanya ITIL v4.</p>
+      </div>
+      <div class="step">
+        <span class="num">03</span>
+        <h3>Bangun bertahap</h3>
+        <p>Mulai dari alur inti yang paling sering dipakai — bukan dari fitur yang paling menarik untuk dipamerkan.</p>
+      </div>
+      <div class="step">
+        <span class="num">04</span>
+        <h3>Serahkan &amp; rawat</h3>
+        <p>Dokumentasi, serah terima, lalu perbaikan berdasarkan bagaimana sistemnya benar-benar dipakai.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="profil">
+    <div class="section-heading">
+      <p class="eyebrow">03 — Profil</p>
+      <h2>Sedikit latar belakang</h2>
+    </div>
+    <div class="profile-grid">
+         <div class="profile-photo">
+      <img src="assets/foto-nixon.jpeg" alt="Foto Nixon Prayoga" loading="lazy">
+    </div>
+      <div class="profile-content">
+        <p>Saya <strong>Nixon Prayoga</strong>, mahasiswa Informatika sekaligus solo developer. Yang membuat cara kerja saya sedikit berbeda: latar <strong>ITIL v4</strong> membuat saya terbiasa melihat software sebagai layanan yang harus dijalankan orang setiap hari — bukan sekadar fitur yang selesai dibangun.</p>
+        <dl class="facts">
+          <dt>Peran</dt>
+          <dd>Solo Developer &amp; Mahasiswa Informatika</dd>
+          <dt>Pendidikan</dt>
+          <dd>Universitas 17 Agustus 1945 Surabaya</dd>
+          <dt>Fokus</dt>
+          <dd>Pengembangan web &amp; mobile, sistem layanan TI berbasis ITIL v4</dd>
+        </dl>
+        <div class="stack-list">
+          <span class="tag">Laravel</span><span class="tag">React</span><span class="tag">TypeScript</span>
+          <span class="tag">Flutter</span><span class="tag">PostgreSQL</span><span class="tag">ITIL v4</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontak">
+    <div class="section-heading">
+      <p class="eyebrow">04 — Kontak</p>
+      <h2>Mari terhubung</h2>
+    </div>
+    <div class="contact">
+      <p>Terbuka untuk diskusi proyek, kolaborasi, atau sekadar bertukar pikiran soal pengembangan web dan kehidupan.</p>
+      <div class="email-row">
+        <a class="contact-email" href="mailto:nixonprayoga@gmail.com" id="emailLink">nixonprayoga@gmail.com</a>
+        <button class="copy-btn" type="button" id="copyBtn">Salin</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>© 2026 Nixon Prayoga Ganteng</span>
+    <div class="socials">
+      <a href="#">GitHub</a>
+      <a href="#">LinkedIn</a>
+    </div>
+  </footer>
+
+</div>
+
+<dialog class="detail" id="detailDialog" aria-labelledby="detailTitle">
+  <div class="detail-inner">
+    <div class="detail-head">
+      <div>
+        <span class="eyebrow" id="detailKicker">Studi kasus</span>
+        <h3 id="detailTitle">—</h3>
+      </div>
+      <button class="close-btn" type="button" id="closeBtn" aria-label="Tutup">×</button>
+    </div>
+    <div class="detail-body">
+
+      <div data-panel="sipelantik" hidden>
+        <h4>Masalah</h4>
+        <p>Permintaan layanan TI datang lewat banyak jalur — chat, lisan, datang langsung — sehingga sulit dilacak: tidak ada riwayat, tidak jelas siapa menangani apa, dan tidak ada ukuran berapa lama sebuah permintaan selesai.</p>
+        <h4>Pendekatan</h4>
+        <p>Alur layanannya dipetakan dulu mengikuti kerangka ITIL v4, baru diterjemahkan jadi sistem: satu pintu masuk tiket, triase yang memisahkan permintaan layanan dari gangguan, penugasan teknisi, dan status yang bisa dilihat pemohon sendiri.</p>
+        <h4>Peran saya</h4>
+        <ul>
+          <li>Analisis proses dan pemodelan alur layanan</li>
+          <li>Perancangan basis data dan struktur tiket</li>
+          <li>Implementasi backend dan frontend</li>
+          <li>Pengujian dan penyusunan dokumentasi</li>
+        </ul>
+        <h4>Stack</h4>
+        <p>Laravel · React + TypeScript · PostgreSQL</p>
+
+        <figure>
+          <div class="fig-scroll">
+            <svg viewBox="0 0 760 300" role="img" aria-label="Alur layanan SIPELANTIK: tiket masuk lewat satu pintu, triase memisahkan permintaan layanan dari gangguan, keduanya bertemu lagi di verifikasi dan penutupan, dengan SLA berjalan dari triase sampai penutupan">
+              <defs>
+                <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+                </marker>
+              </defs>
+
+              <rect x="12" y="120" width="120" height="56" rx="10" fill="var(--paper-raised)" stroke="var(--line-strong)" stroke-width="1.5"/>
+              <text x="72" y="145" text-anchor="middle" font-family="Manrope, sans-serif" font-size="13" font-weight="600" fill="var(--ink)">Pemohon</text>
+              <text x="72" y="162" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--ink-muted)">SATU PINTU</text>
+
+              <line x1="136" y1="148" x2="196" y2="148" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"/>
+              <text x="166" y="140" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor">ajukan</text>
+
+              <rect x="202" y="120" width="130" height="56" rx="10" fill="var(--paper-raised)" stroke="var(--line-strong)" stroke-width="1.5"/>
+              <text x="267" y="145" text-anchor="middle" font-family="Manrope, sans-serif" font-size="13" font-weight="600" fill="var(--ink)">Triase</text>
+              <text x="267" y="162" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--ink-muted)">KATEGORI · PRIORITAS</text>
+
+              <path d="M 332 138 L 400 138 L 400 104" fill="none" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"/>
+              <text x="363" y="130" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor">permintaan</text>
+              <path d="M 332 158 L 400 158 L 400 192" fill="none" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"/>
+              <text x="363" y="174" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor">gangguan</text>
+
+              <rect x="414" y="46" width="152" height="52" rx="10" fill="var(--paper-raised)" stroke="var(--pine)" stroke-width="1.5"/>
+              <text x="490" y="70" text-anchor="middle" font-family="Manrope, sans-serif" font-size="13" font-weight="600" fill="var(--pine)">Service Request</text>
+              <text x="490" y="86" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--ink-muted)">PEMENUHAN LAYANAN</text>
+
+              <rect x="414" y="198" width="152" height="52" rx="10" fill="var(--paper-raised)" stroke="var(--clay)" stroke-width="1.5"/>
+              <text x="490" y="222" text-anchor="middle" font-family="Manrope, sans-serif" font-size="13" font-weight="600" fill="var(--clay)">Incident</text>
+              <text x="490" y="238" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--ink-muted)">PEMULIHAN LAYANAN</text>
+
+              <path d="M 566 72 L 612 72 L 612 114" fill="none" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"/>
+              <path d="M 566 224 L 612 224 L 612 182" fill="none" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"/>
+
+              <rect x="626" y="120" width="122" height="56" rx="10" fill="var(--paper-raised)" stroke="var(--line-strong)" stroke-width="1.5"/>
+              <text x="687" y="145" text-anchor="middle" font-family="Manrope, sans-serif" font-size="13" font-weight="600" fill="var(--ink)">Penutupan</text>
+              <text x="687" y="162" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--ink-muted)">VERIFIKASI</text>
+
+              <line x1="267" y1="284" x2="687" y2="284" stroke="var(--amber)" stroke-width="1.5" stroke-dasharray="5 4"/>
+              <line x1="267" y1="176" x2="267" y2="284" stroke="var(--amber)" stroke-width="1" stroke-dasharray="3 3"/>
+              <line x1="687" y1="176" x2="687" y2="284" stroke="var(--amber)" stroke-width="1" stroke-dasharray="3 3"/>
+              <text x="477" y="277" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--amber)">SLA BERJALAN</text>
+            </svg>
+          </div>
+          <figcaption>Alur layanan SIPELANTIK. Triase adalah titik keputusannya: satu tiket masuk dipisah jadi permintaan layanan atau gangguan, dan keduanya tetap bertemu di verifikasi yang sama. SLA dihitung dari triase sampai penutupan — bukan dari saat teknisi mulai bekerja.</figcaption>
+        </figure>
+      </div>
+
+      <div data-panel="wisata" hidden>
+        <h4>Ringkasan</h4>
+        <p>Aplikasi mobile promosi pariwisata Trenggalek. Tiap destinasi punya virtual tour 360° supaya calon pengunjung bisa melihat lokasinya lebih dulu sebelum memutuskan berangkat.</p>
+        <h4>Peran saya</h4>
+        <ul>
+          <li>Perancangan antarmuka dan alur navigasi</li>
+          <li>Implementasi aplikasi Flutter</li>
+          <li>Integrasi Firebase untuk data destinasi</li>
+        </ul>
+        <h4>Stack</h4>
+        <p>Flutter · Firebase</p>
+      </div>
+
+      <div data-panel="absensi" hidden>
+        <h4>Ringkasan</h4>
+        <p>Aplikasi absensi karyawan untuk PT Kilau Pilar Kencana: absen masuk dan pulang, plus rekap kehadiran harian yang bisa dipakai bagian personalia.</p>
+        <h4>Peran saya</h4>
+        <ul>
+          <li>Pengembangan aplikasi mobile end-to-end</li>
+          <li>Perancangan alur absen dan struktur data kehadiran</li>
+        </ul>
+        <h4>Stack</h4>
+        <p>Flutter</p>
+      </div>
+
+      <div data-panel="roti" hidden>
+        <h4>Ringkasan</h4>
+        <p>Aplikasi mobile untuk toko roti: katalog produk, pemesanan, dan informasi stok harian supaya pembeli tidak memesan barang yang sudah habis.</p>
+        <h4>Peran saya</h4>
+        <ul>
+          <li>Perancangan antarmuka katalog dan keranjang</li>
+          <li>Pengembangan aplikasi Flutter</li>
+        </ul>
+        <h4>Stack</h4>
+        <p>Flutter</p>
+      </div>
+
+      <div data-panel="umkm" hidden>
+        <h4>Ringkasan</h4>
+        <p>Toko online untuk pelaku UMKM — katalog produk, keranjang belanja, dan manajemen pesanan sederhana yang bisa dioperasikan pemilik usaha sendiri tanpa pelatihan panjang.</p>
+        <h4>Peran saya</h4>
+        <ul>
+          <li>Perancangan tampilan dan alur belanja</li>
+          <li>Implementasi backend Laravel dan halaman toko</li>
+        </ul>
+        <h4>Stack</h4>
+        <p>HTML · CSS · Laravel</p>
+      </div>
+
+    </div>
+  </div>
+</dialog>
+<script src="script.js"></script>
+</body>
+</html>
